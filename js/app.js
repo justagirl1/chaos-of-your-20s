@@ -13,6 +13,13 @@ const CATEGORY_LABEL = {
   thoughts: 'Thoughts'
 };
 
+function revealWriteLinkIfUnlocked() {
+  const link = document.getElementById('write-link');
+  if (link && localStorage.getItem('chaosBlogEditorUnlocked') === '1') {
+    link.style.display = '';
+  }
+}
+
 function stripHtml(html) {
   const div = document.createElement('div');
   div.innerHTML = html;
@@ -51,6 +58,7 @@ function cardHtml(post) {
 }
 
 async function initIndex() {
+  revealWriteLinkIfUnlocked();
   const grid = document.getElementById('post-grid');
   const pills = document.querySelectorAll('.nav-pill[data-filter]');
   let allPosts = [];
@@ -90,6 +98,7 @@ async function initIndex() {
 }
 
 async function initPost() {
+  revealWriteLinkIfUnlocked();
   const container = document.getElementById('post-container');
   const params = new URLSearchParams(location.search);
   const id = params.get('id');
