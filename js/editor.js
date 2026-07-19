@@ -1,5 +1,11 @@
 /* Editor logic: create/edit posts locally (IndexedDB) with photo upload,
-   then export a posts.json to actually publish the changes to the live site. */
+   then publish directly to the live site via the GitHub API. */
+
+const GH_OWNER = 'justagirl1';
+const GH_REPO = 'chaos-of-your-20s';
+const GH_BRANCH = 'master';
+const GH_PATH = 'data/posts.json';
+const GH_TOKEN_KEY = 'chaosBlogGhToken';
 
 let currentId = null;
 let currentImages = [];
@@ -16,6 +22,10 @@ const saveBtn = document.getElementById('save-btn');
 const deleteBtn = document.getElementById('delete-btn');
 const exportBtn = document.getElementById('export-btn');
 const importInput = document.getElementById('import-input');
+const publishBtn = document.getElementById('publish-btn');
+const tokenInput = document.getElementById('f-token');
+const saveTokenBtn = document.getElementById('save-token-btn');
+const connectHint = document.getElementById('connect-hint');
 
 function setStatus(msg) {
   statusMsg.textContent = msg;
@@ -190,8 +200,91 @@ importInput.addEventListener('change', async () => {
   importInput.value = '';
 });
 
+function getGhToken() {
+  return localStorage.getItem(GH_TOKEN_KEY) || '';
+}
+
+function utf8ToBase64(str) {
+  return btoa(unescape(encodeURIComponent(str)));
+}
+
+function updateConnectHint() {
+  if (getGhToken()) {
+    connectHint.innerHTML = '✅ Connected to your website. Click <strong>Publish</strong> any time to go live.';
+  } else {
+    connectHint.textContent = 'Writing here saves locally in this browser only. To make it visible to everyone, connect your website once below.';
+  }
+}
+
+saveTokenBtn.addEventListener('click', () => {
+  const token = tokenInput.value.trim();
+  if (!token) {
+    setStatus('Paste your token first.');
+    return;
+  }
+  localStorage.setItem(GH_TOKEN_KEY, token);
+  tokenInput.value = '';
+  updateConnectHint();
+  setStatus('Connected ✓ — you can publish now.');
+});
+
+publishBtn.addEventListener('click', async () => {
+  const token = getGhToken();
+  if (!token) {
+    setStatus('Connect your website first (see "Connect website" below).');
+    return;
+  }
+
+  publishBtn.disabled = true;
+  setStatus('Publishing…');
+
+  try {
+    const posts = (await dbGetAll()).sort((a, b) => new Date(b.date) - new Date(a.date));
+    const contentB64 = utf8ToBase64(JSON.stringify(posts, null, 2));
+
+    const apiUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}`;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/vnd.github+json'
+    };
+
+    let sha;
+    const getRes = await fetch(`${apiUrl}?ref=${GH_BRANCH}`, { headers });
+    if (getRes.ok) {
+      sha = (await getRes.json()).sha;
+    } else if (getRes.status === 401) {
+      throw new Error('Your token was rejected. Please create a new one and reconnect.');
+    } else if (getRes.status !== 404) {
+      throw new Error('Could not check the current live version (status ' + getRes.status + ').');
+    }
+
+    const putRes = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: { ...headers, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: 'Update posts from the editor',
+        content: contentB64,
+        sha,
+        branch: GH_BRANCH
+      })
+    });
+
+    if (!putRes.ok) {
+      const err = await putRes.json().catch(() => ({}));
+      throw new Error(err.message || ('Publish failed (status ' + putRes.status + ').'));
+    }
+
+    setStatus('Published 🚀 — live on your website in about a minute.');
+  } catch (e) {
+    setStatus('⚠ ' + e.message);
+  } finally {
+    publishBtn.disabled = false;
+  }
+});
+
 (async function init() {
   await seedFromPublishedIfEmpty();
   await refreshList();
   clearForm();
+  updateConnectHint();
 })();

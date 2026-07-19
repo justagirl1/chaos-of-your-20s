@@ -32,15 +32,39 @@
 
       <hr class="divider">
       <h2>Publish</h2>
-      <button class="btn btn-primary btn-block" id="export-btn">⬇ Export posts.json</button>
-      <label class="btn btn-secondary btn-block" style="text-align:center;margin-top:10px;display:block;cursor:pointer;">
-        ⬆ Import posts.json
-        <input type="file" id="import-input" accept="application/json" style="display:none">
-      </label>
-      <div class="hint-box">
-        Writing here saves locally in this browser only. Click <strong>Export</strong>, then replace <code>data/posts.json</code>
-        in your project with the downloaded file and redeploy — that's what makes a post visible to everyone.
+      <button class="btn btn-primary btn-block" id="publish-btn">🚀 Publish to website</button>
+      <div class="hint-box" id="connect-hint">
+        Writing here saves locally in this browser only. To make it visible to everyone, connect your website once below.
       </div>
+
+      <details style="margin-top:14px">
+        <summary style="cursor:pointer;font-size:0.8rem;font-weight:700;color:var(--rose-dark);text-transform:uppercase;letter-spacing:0.5px;">⚙ Connect website (one-time setup)</summary>
+        <div style="margin-top:12px">
+          <div class="field">
+            <label for="f-token">GitHub access token</label>
+            <input type="password" id="f-token" placeholder="paste your token here">
+          </div>
+          <button class="btn btn-secondary btn-block" id="save-token-btn">Save connection</button>
+          <div class="hint-box">
+            <strong>One-time only:</strong> go to
+            <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a>,
+            sign in as <code>justagirl1</code>, choose <em>"Only select repositories"</em> → <code>chaos-of-your-20s</code>,
+            then under <em>Permissions → Repository permissions → Contents</em> select <strong>Read and write</strong>. Generate it, copy it, and paste it above.
+            This token is stored only in this browser and is never sent to anyone but GitHub.
+          </div>
+        </div>
+      </details>
+
+      <details style="margin-top:14px">
+        <summary style="cursor:pointer;font-size:0.8rem;font-weight:700;color:var(--rose-dark);text-transform:uppercase;letter-spacing:0.5px;">Backup (optional)</summary>
+        <div style="margin-top:12px">
+          <button class="btn btn-secondary btn-block" id="export-btn">⬇ Export posts.json</button>
+          <label class="btn btn-secondary btn-block" style="text-align:center;margin-top:10px;display:block;cursor:pointer;">
+            ⬆ Import posts.json
+            <input type="file" id="import-input" accept="application/json" style="display:none">
+          </label>
+        </div>
+      </details>
     </aside>
 
     <section class="panel">
