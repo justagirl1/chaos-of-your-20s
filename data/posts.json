@@ -1,0 +1,29 @@
+[
+  {
+    "id": "post-1",
+    "title": "I Signed the Lease on My First Apartment",
+    "category": "milestones",
+    "date": "2026-03-02T10:00:00.000Z",
+    "excerpt": "My hands were shaking when I signed my name, and not just because of the rent.",
+    "contentHtml": "<p>My hands were shaking when I signed my name, and not just because of the rent. There is something surreal about a stack of paper turning into a set of keys — into a door that is, for the first time, entirely mine to lock and unlock.</p><p>Nobody warns you how many feelings fit into one afternoon: pride, panic, and a strange kind of grief for the version of me who is still figuring out how to be a grown-up. I stood in the empty living room and just breathed for a minute.</p><blockquote>Growing up doesn't happen in one big leap. It happens in a hundred small signatures.</blockquote><p>Tonight I'll sleep on a mattress on the floor, surrounded by boxes, and honestly? I can't stop smiling.</p>",
+    "images": []
+  },
+  {
+    "id": "post-2",
+    "title": "This Year I Want to Stop Apologizing for Taking Up Space",
+    "category": "goals",
+    "date": "2026-01-10T09:30:00.000Z",
+    "excerpt": "A small list of things I'm trying to unlearn this year, one awkward sentence at a time.",
+    "contentHtml": "<p>I counted once: I said \"sorry\" fourteen times in a single meeting, for things that needed no apology at all. This year that's the habit I want to unlearn.</p><ul><li>Saying what I actually think, the first time, without a disclaimer</li><li>Letting silence sit instead of filling it with excuses</li><li>Taking the seat at the table instead of hovering near the door</li></ul><p>None of this is dramatic. It's quiet, everyday work — but it's mine, and I'm doing it on purpose.</p>",
+    "images": []
+  },
+  {
+    "id": "post-3",
+    "title": "Nobody Tells You How Loud Silence Can Get in Your Late Twenties",
+    "category": "thoughts",
+    "date": "2025-11-18T20:15:00.000Z",
+    "excerpt": "Somewhere between 25 and 30, the group chats slow down and the Sunday phone calls get quieter.",
+    "contentHtml": "<p>Somewhere between twenty-five and thirty, the group chats slow down. People move cities, get married, change time zones, and the Sunday phone calls get quieter without anyone deciding it that way.</p><p>I used to think that silence meant something was wrong. Now I think it just means everyone is busy building their own version of a life, carefully, in their own room.</p><blockquote>Maybe the goal was never to keep every room full. Maybe it's to like the person standing in mine.</blockquote>",
+    "images": []
+  }
+]
