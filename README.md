@@ -2,45 +2,32 @@
 
 Ein warmer, statischer Blog in Rosé-/Coral-Tönen mit den Kategorien **Milestones**, **Goals** und **Thoughts** — inklusive einem eigenen Editor zum Schreiben und Foto-Upload direkt im Browser.
 
+**Live:** https://justagirl1.github.io/chaos-of-your-20s/
+**Editor:** https://justagirl1.github.io/chaos-of-your-20s/editor.html
+
 ## Wie es aufgebaut ist
 
 - `index.html` – Startseite mit Kategorie-Filtern und Post-Übersicht
 - `post.html` – Einzelansicht eines Posts
-- `editor.html` – dein Schreibtisch: Titel, Kategorie, Text (mit Formatierung), Fotos hochladen
+- `editor.html` – dein Schreibtisch: Titel, Kategorie, Text (mit Formatierung), Fotos hochladen, direkt veröffentlichen
 - `data/posts.json` – **die eigentlichen, veröffentlichten Inhalte.** Das ist die einzige Datei, die alle Besucher:innen sehen.
 - `css/style.css`, `js/` – Design & Logik
 
-Es gibt **keinen Server und keine Datenbank** – die Seite ist zu 100 % statisch und funktioniert überall kostenlos.
+Es gibt **keinen eigenen Server und keine Datenbank** – gehostet wird kostenlos über GitHub Pages. Veröffentlicht wird direkt aus dem Editor heraus über die GitHub-API, komplett selbstständig, ohne Zwischenschritte.
 
-## Wie das Schreiben funktioniert
+## Wie das Schreiben & Veröffentlichen funktioniert
 
-1. Öffne `editor.html` (lokal oder auf deiner gehosteten Seite).
-2. Klicke **„+ New post“**, schreib Titel, wähl eine Kategorie, lade Fotos hoch, schreib deinen Text.
-3. Klick **„💾 Save“** – das speichert lokal in deinem Browser (IndexedDB), noch nicht öffentlich sichtbar.
-4. Wenn du fertig bist: Klick **„⬇ Export posts.json“**. Das lädt eine `posts.json`-Datei mit allen deinen Posts herunter.
-5. Ersetze `data/posts.json` in deinem Projektordner durch die heruntergeladene Datei.
-6. Lade die Änderung dorthin hoch, wo deine Seite gehostet ist (siehe unten) – fertig, der Post ist live.
+1. Öffne den Editor-Link oben.
+2. **Einmalig verbinden:** Klapp unten „⚙ Connect website (one-time setup)“ auf, erstelle auf der verlinkten GitHub-Seite einen Token (nur für dieses eine Repo, nur Lese-/Schreibrecht auf Inhalte), füge ihn ein und klick „Save connection“. Der Token bleibt nur in deinem Browser gespeichert.
+3. Klicke **„+ New post“**, schreib Titel, wähl eine Kategorie, lade Fotos hoch, schreib deinen Text.
+4. Klick **„💾 Save“** – speichert erstmal nur als Entwurf in deinem Browser.
+5. Wenn du zufrieden bist: Klick **„🚀 Publish to website“** – nach ca. einer Minute ist der Post live, ganz ohne weitere Schritte.
 
-> Der Editor ist quasi dein privates Schreibzimmer. Erst der Export macht einen Post für alle sichtbar. So bleibt die Seite komplett statisch und kostenlos hostbar.
+Unter „Backup (optional)“ gibt es weiterhin Export/Import als reine Sicherheitskopie, falls du z. B. an einem anderen Gerät weiterschreiben willst – für das normale Veröffentlichen brauchst du das aber nicht.
 
-Mit **„⬆ Import posts.json“** kannst du eine bestehende `posts.json` wieder in den Editor laden, z. B. wenn du an einem anderen Gerät weiterschreiben willst.
+## Kostenlos gehostet über GitHub Pages
 
-## Kostenlos hosten
-
-**Am einfachsten: GitHub Pages**
-
-1. Erstelle ein neues (öffentliches) Repository auf GitHub, z. B. `chaos-of-your-20s`.
-2. Lade den kompletten Inhalt dieses Ordners hoch (per GitHub Desktop, Web-Upload oder `git push`).
-3. Gehe im Repo zu **Settings → Pages**, wähle als Quelle den `main`-Branch und Ordner `/ (root)`.
-4. Nach ein bis zwei Minuten ist deine Seite live unter `https://<dein-username>.github.io/chaos-of-your-20s/`.
-
-**Alternative: Netlify Drop**
-
-1. Gehe auf [app.netlify.com/drop](https://app.netlify.com/drop).
-2. Ziehe den ganzen Projektordner ins Browserfenster.
-3. Fertig – du bekommst sofort eine kostenlose Live-URL. Für Updates einfach den Ordner erneut hochziehen.
-
-Beide Varianten sind dauerhaft kostenlos für ein persönliches Blog dieser Größe.
+Das Repository liegt unter github.com/justagirl1/chaos-of-your-20s, GitHub Pages ist bereits aktiviert. Jede Veröffentlichung über den Editor aktualisiert automatisch die Live-Seite – dauerhaft kostenlos.
 
 ## Lokal testen (optional)
 
