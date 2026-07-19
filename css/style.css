@@ -504,3 +504,69 @@ footer {
   color: var(--text-light);
   font-size: 0.82rem;
 }
+
+/* ---------- editor password gate ---------- */
+
+.gate-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, var(--rose), var(--coral));
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.gate-box {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 40px 34px;
+  max-width: 340px;
+  width: 100%;
+  text-align: center;
+}
+
+.gate-box .big-emoji {
+  font-size: 2.4rem;
+  margin-bottom: 10px;
+}
+
+.gate-box h2 {
+  margin: 0 0 6px;
+  color: var(--text);
+  font-size: 1.3rem;
+}
+
+.gate-box p {
+  color: var(--text-light);
+  font-size: 0.85rem;
+  margin: 0 0 20px;
+}
+
+.gate-box input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1.5px solid var(--blush-deep);
+  background: var(--cream);
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.gate-box input:focus {
+  outline: none;
+  border-color: var(--coral);
+}
+
+.gate-error {
+  color: var(--coral-dark);
+  font-size: 0.8rem;
+  font-weight: 600;
+  min-height: 1.2em;
+  margin-bottom: 10px;
+}

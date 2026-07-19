@@ -4,12 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Write · the chaos of being in your 20s</title>
+<meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍️</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+<div class="gate-overlay" id="gate-overlay">
+  <div class="gate-box">
+    <div class="big-emoji">🔒</div>
+    <h2>Your writing desk</h2>
+    <p>This area is just for you.</p>
+    <input type="password" id="gate-password" placeholder="Password">
+    <div class="gate-error" id="gate-error"></div>
+    <button class="btn btn-primary btn-block" id="gate-unlock-btn">Unlock</button>
+  </div>
+</div>
 
 <header class="site-header">
   <div class="wrap">
@@ -116,6 +128,7 @@
 
 <footer>made with 🌷 &middot; the chaos of being in your 20s</footer>
 
+<script src="js/gate.js"></script>
 <script src="js/db.js"></script>
 <script src="js/editor.js"></script>
 </body>

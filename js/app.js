@@ -133,4 +133,30 @@ async function initPost() {
     <div class="post-content">${post.contentHtml}</div>
     ${gallery}
   `;
+
+  loadComments(post.id);
+}
+
+function loadComments(postId) {
+  const wrap = document.getElementById('comments-container');
+  const mount = document.getElementById('giscus-mount');
+  wrap.style.display = 'block';
+
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'justagirl1/chaos-of-your-20s');
+  script.setAttribute('data-repo-id', 'R_kgDOTdSYHg');
+  script.setAttribute('data-category', 'Announcements');
+  script.setAttribute('data-category-id', 'DIC_kwDOTdSYHs4DBhpW');
+  script.setAttribute('data-mapping', 'specific');
+  script.setAttribute('data-term', postId);
+  script.setAttribute('data-strict', '1');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'top');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.crossOrigin = 'anonymous';
+  script.async = true;
+  mount.appendChild(script);
 }
