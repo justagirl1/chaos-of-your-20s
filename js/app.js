@@ -1,6 +1,10 @@
 /* Public-facing rendering: index.html + post.html.
    Reads only from data/posts.json so every visitor sees the same, published content. */
 
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted) location.reload();
+});
+
 const CATEGORY_EMOJI = {
   milestones: '🌸',
   goals: '🎯',
@@ -32,7 +36,7 @@ function formatDate(iso) {
 }
 
 async function fetchPosts() {
-  const res = await fetch('data/posts.json', { cache: 'no-store' });
+  const res = await fetch('data/posts.json?v=' + Date.now(), { cache: 'no-store' });
   const posts = await res.json();
   return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 }
