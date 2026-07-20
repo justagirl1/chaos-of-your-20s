@@ -159,7 +159,13 @@ saveBtn.addEventListener('click', async () => {
   currentId = post.id;
   deleteBtn.style.display = 'inline-block';
   await refreshList();
-  setStatus('Saved locally ✓ — export when you\'re ready to publish.');
+
+  if (getGhToken()) {
+    setStatus('Saved — publishing…');
+    await publishToGithub();
+  } else {
+    setStatus('Saved locally ✓ — connect your website below to publish.');
+  }
 });
 
 deleteBtn.addEventListener('click', async () => {
@@ -168,7 +174,13 @@ deleteBtn.addEventListener('click', async () => {
   await dbDelete(currentId);
   clearForm();
   await refreshList();
-  setStatus('Post deleted.');
+
+  if (getGhToken()) {
+    setStatus('Deleted — publishing…');
+    await publishToGithub();
+  } else {
+    setStatus('Deleted locally ✓ — connect your website below to publish.');
+  }
 });
 
 exportBtn.addEventListener('click', async () => {
@@ -210,9 +222,9 @@ function utf8ToBase64(str) {
 
 function updateConnectHint() {
   if (getGhToken()) {
-    connectHint.innerHTML = '✅ Connected to your website. Click <strong>Publish</strong> any time to go live.';
+    connectHint.innerHTML = '✅ Connected. „Save &amp; Publish" now goes live automatically.';
   } else {
-    connectHint.textContent = 'Writing here saves locally in this browser only. To make it visible to everyone, connect your website once below.';
+    connectHint.textContent = 'Writing here saves locally in this browser only. To make it visible to everyone, connect your website once below — after that, every „Save & Publish" goes live automatically.';
   }
 }
 
@@ -228,15 +240,15 @@ saveTokenBtn.addEventListener('click', () => {
   setStatus('Connected ✓ — you can publish now.');
 });
 
-publishBtn.addEventListener('click', async () => {
+async function publishToGithub() {
   const token = getGhToken();
   if (!token) {
     setStatus('Connect your website first (see "Connect website" below).');
-    return;
+    return false;
   }
 
   publishBtn.disabled = true;
-  setStatus('Publishing…');
+  saveBtn.disabled = true;
 
   try {
     const posts = (await dbGetAll()).sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -275,12 +287,17 @@ publishBtn.addEventListener('click', async () => {
     }
 
     setStatus('Published 🚀 — live on your website in about a minute.');
+    return true;
   } catch (e) {
     setStatus('⚠ ' + e.message);
+    return false;
   } finally {
     publishBtn.disabled = false;
+    saveBtn.disabled = false;
   }
-});
+}
+
+publishBtn.addEventListener('click', () => publishToGithub());
 
 (async function init() {
   await seedFromPublishedIfEmpty();
