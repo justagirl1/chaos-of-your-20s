@@ -38,6 +38,19 @@ async function tryUnlock() {
 }
 
 (function initGate() {
+  // Only trust an existing unlock if this load is a genuine in-page reload
+  // (F5) or a back/forward step. Any other kind of load — a freshly typed
+  // URL, a bookmark, a brand new tab, or the browser restoring a previous
+  // session after being reopened — forces the password again, even though
+  // some browsers would otherwise silently carry sessionStorage over.
+  const navEntries = performance.getEntriesByType('navigation');
+  const navType = navEntries.length ? navEntries[0].type : 'navigate';
+  const isContinuation = navType === 'reload' || navType === 'back_forward';
+
+  if (!isContinuation) {
+    sessionStorage.removeItem(GATE_KEY);
+  }
+
   if (sessionStorage.getItem(GATE_KEY) === '1') {
     hideGate();
   } else {
