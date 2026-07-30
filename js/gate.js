@@ -26,7 +26,7 @@ async function tryUnlock() {
   const errorEl = document.getElementById('gate-error');
   const hash = await sha256Hex(input.value);
   if (hash === GATE_HASH) {
-    localStorage.setItem(GATE_KEY, '1');
+    sessionStorage.setItem(GATE_KEY, '1');
     errorEl.textContent = '';
     input.value = '';
     hideGate();
@@ -38,7 +38,7 @@ async function tryUnlock() {
 }
 
 (function initGate() {
-  if (localStorage.getItem(GATE_KEY) === '1') {
+  if (sessionStorage.getItem(GATE_KEY) === '1') {
     hideGate();
   } else {
     showGate();

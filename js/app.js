@@ -19,7 +19,7 @@ const CATEGORY_LABEL = {
 
 function revealWriteLinkIfUnlocked() {
   const link = document.getElementById('write-link');
-  if (link && localStorage.getItem('chaosBlogEditorUnlocked') === '1') {
+  if (link && sessionStorage.getItem('chaosBlogEditorUnlocked') === '1') {
     link.style.display = '';
   }
 }
